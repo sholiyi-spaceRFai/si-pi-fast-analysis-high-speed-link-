@@ -9,7 +9,7 @@ The schematic below illustrates the fundamental mechanisms that degrade signal q
 ---
 
 ## 🖼️ Schematic Illustration
-
+![SI and PI Schematic](https://raw.githubusercontent.com/YOUR-USERNAME/si-pi-fast-analysis-high-speed-link-/main/si_pi_schematic.png)
 
 ![SI and PI Schematic](./si_pi_schematic.png)
 
