@@ -2,115 +2,157 @@
 
 ## 📌 Overview
 
-This project presents a compact yet comprehensive analysis of **signal integrity (SI)** and **power integrity (PI)** challenges in high-speed digital systems.
+This project presents a compact yet comprehensive analysis of **signal integrity (SI)** and **power integrity (PI)** in high-speed digital systems.
 
-Using Python-based simulations, it demonstrates how real-world non-idealities—such as **bandwidth limitation, jitter, noise, and parasitic elements (ESR/ESL)**—affect system performance.
-
-The goal is to highlight **first-order engineering trade-offs** encountered in high-speed PCB and interconnect design.
+It demonstrates how real-world non-idealities—such as **bandwidth limitation, jitter, noise, and parasitic elements (ESR/ESL)**—affect system performance using simulation-driven analysis.
 
 ---
 
 ## ⚙️ Objectives
 
-* Analyze **signal reflections and bandwidth limitations** in high-speed links
-* Visualize **eye diagram degradation** due to channel effects, jitter, and noise
-* Model **power delivery network (PDN) behavior** under transient load
-* Demonstrate the impact of **ESR and ESL on voltage stability**
+* Analyze signal reflections due to impedance mismatch
+* Visualize eye diagram degradation under realistic conditions
+* Model transient behavior of power delivery networks (PDN)
+* Demonstrate the impact of ESR and ESL on voltage stability
 
 ---
 
 ## 🧪 Project Components
 
+---
+
 ### 1️⃣ Signal Integrity: Reflection Analysis
 
-* Models impedance mismatch in a transmission line
+📄 Code: [`si_analysis.py`](./si_analysis.py)
+
+🖼️ Output:
+
+![Signal Integrity Plot](./si_plot.png)
+
+🔍 **Description**
+
+* Models a transmission line with impedance mismatch
 * Demonstrates signal reflection and waveform distortion
 
-🔍 Key Insight:
-Impedance mismatch leads to reflections, causing overshoot, ringing, and degraded signal quality.
+💡 **Insight**
+Impedance mismatch produces reflections that lead to overshoot, ringing, and degraded signal quality.
 
 ---
 
-### 2️⃣ Eye Diagram Analysis (Bandwidth Effects)
+### 2️⃣ Eye Diagram: Bandwidth Comparison (2.5 GHz vs 4 GHz)
+
+📄 Code: [`eye_diagram_comparison.py`](./eye_diagram_comparison.py)
+
+🖼️ Outputs:
+
+![Eye Comparison](./eye_comparison.png)
+
+![Eye Overlay](./eye_overlay.png)
+
+🔍 **Description**
 
 * Simulates a 5 Gbps NRZ signal
 * Compares two channel bandwidths:
 
-  * **2.5 GHz (limited channel)**
-  * **4 GHz (improved channel)**
+  * 2.5 GHz (bandwidth-limited)
+  * 4 GHz (improved channel)
 
-📊 Observations:
-
-* Lower bandwidth → increased **inter-symbol interference (ISI)**
-* Higher bandwidth → improved **eye opening**
-
-🔍 Key Insight:
-Bandwidth limitation removes high-frequency components, slowing transitions and degrading signal integrity.
+💡 **Insight**
+Bandwidth limitation introduces **inter-symbol interference (ISI)**, reducing eye opening and degrading signal integrity.
 
 ---
 
-### 3️⃣ Advanced Eye Diagram (Jitter + Noise)
+### 3️⃣ Advanced Eye Diagram: Jitter + Noise
 
-* Adds **timing jitter** and **Gaussian voltage noise**
-* Simulates realistic channel impairments
+📄 Code: [`eye_diagram_advanced.py`](./eye_diagram_advanced.py)
 
-📊 Observations:
+🖼️ Output:
 
-* Jitter → horizontal eye closure (timing margin loss)
-* Noise → vertical eye closure (voltage margin loss)
-* Combined → significant signal degradation
+![Advanced Eye Diagram](./eye_advanced.png)
 
-🔍 Key Insight:
-Signal reliability depends on both timing accuracy and voltage stability. Jitter and noise directly increase bit error probability.
+🔍 **Description**
+
+* Adds timing jitter and Gaussian noise
+* Simulates realistic high-speed signal impairments
+
+💡 **Insight**
+
+* Jitter → reduces timing margin (horizontal closure)
+* Noise → reduces voltage margin (vertical closure)
+* Combined → significant degradation and higher error probability
 
 ---
 
-### 4️⃣ Power Integrity: Ideal vs Real PDN
+### 4️⃣ Power Integrity: Basic Analysis
 
-* Simulates transient current loading
-* Compares:
+📄 Code: [`pi_analysis.py`](./pi_analysis.py)
 
-  * Ideal capacitor response
-  * Real capacitor with **ESR + ESL**
+🖼️ Output:
 
-📊 Observations:
+![Basic PI Plot](./pi_plot.png)
 
-* Ideal case → smooth voltage droop
-* Real case →
+🔍 **Description**
 
-  * Instant voltage drop (ESR effect)
-  * Ringing and instability (ESL effect)
+* Simulates voltage droop due to transient load
+* Demonstrates effect of decoupling capacitance
 
-🔍 Key Insight:
-Parasitic resistance and inductance dominate high-frequency PDN behavior, making component selection and layout critical.
+💡 **Insight**
+Larger capacitance improves voltage stability but does not capture real-world parasitics.
+
+---
+
+### 5️⃣ Power Integrity: ESR & ESL Effects (Degraded PDN)
+
+📄 Code: [`pi_analysis_advanced.py`](./pi_analysis_advanced.py)
+
+🖼️ Output:
+
+![Degraded PI Plot](./pi_degraded.png)
+
+🔍 **Description**
+
+* Introduces ESR and ESL into decoupling model
+* Simulates realistic PDN behavior under transient load
+
+💡 **Insight**
+
+* ESR → immediate voltage drop
+* ESL → ringing and instability
+* Parasitics dominate high-frequency performance
 
 ---
 
 ## 🔬 Key Concepts Covered
 
-### 🔹 Signal Integrity (SI)
+### 🔹 Signal Integrity
 
-* Transmission line effects
-* Impedance mismatch and reflections
+* Transmission line reflections
+* Impedance mismatch
 * Inter-symbol interference (ISI)
-* Eye diagram analysis
+* Eye diagram interpretation
 
-### 🔹 Power Integrity (PI)
+### 🔹 Power Integrity
 
-* Voltage droop under transient load
+* Voltage droop
 * Decoupling strategies
 * ESR (Equivalent Series Resistance)
 * ESL (Equivalent Series Inductance)
 
 ---
 
-## 📊 Engineering Insights
+## 📈 How to Interpret the Results
 
-* **Bandwidth is critical** for preserving signal transitions in high-speed systems
-* **ISI is a primary source of signal degradation** in limited channels
-* **Jitter and noise jointly reduce system reliability**
-* **PDN parasitics (ESR/ESL) significantly impact voltage stability**
-* Increasing capacitance alone is insufficient—**parasitics and layout dominate performance**
+### Eye Diagrams
+
+* **Eye Height** → Noise margin
+* **Eye Width** → Timing margin
+* Closed eye → degraded signal quality
+
+### PI Plots
+
+* Voltage droop → insufficient decoupling
+* Ringing → inductive effects
+* Instant drop → resistive losses
 
 ---
 
@@ -128,11 +170,11 @@ Parasitic resistance and inductance dominate high-frequency PDN behavior, making
 ```
 si-pi-fast-analysis-high-speed-link/
 │
-├── si_analysis.py                  # Reflection analysis
-├── eye_diagram_comparison.py      # 2.5 GHz vs 4 GHz eye diagrams
-├── eye_diagram_advanced.py        # Jitter + noise simulation
-├── pi_analysis.py                 # Basic PI model
-├── pi_analysis_advanced.py        # ESR + ESL effects
+├── si_analysis.py
+├── eye_diagram_comparison.py
+├── eye_diagram_advanced.py
+├── pi_analysis.py
+├── pi_analysis_advanced.py
 │
 ├── si_plot.png
 ├── eye_comparison.png
@@ -146,37 +188,23 @@ si-pi-fast-analysis-high-speed-link/
 
 ---
 
-## 📈 How to Interpret the Results
-
-### Eye Diagrams
-
-* **Eye Height** → Noise margin
-* **Eye Width** → Timing margin
-* Closed eye → poor signal integrity
-
-### PI Plots
-
-* Voltage droop → insufficient decoupling
-* Ringing → inductive effects
-* Instant drop → resistive losses
-
----
-
 ## 🎯 Conclusion
 
-This project demonstrates how fundamental SI/PI principles manifest in high-speed systems. By progressively introducing real-world effects—bandwidth limitation, jitter, noise, ESR, and ESL—it highlights the importance of **holistic design in both signal and power domains**.
+This project demonstrates how key SI/PI impairments—bandwidth limitation, jitter, noise, ESR, and ESL—affect high-speed system performance.
+
+It highlights the importance of **co-designing signal and power integrity** to ensure reliable operation in modern electronic systems.
 
 ---
 
 ## 🚀 Future Improvements
 
-* Eye height/width quantitative extraction
-* Bit Error Rate (BER) estimation
+* Eye height/width extraction
+* BER estimation
 * Frequency-domain PDN impedance analysis
-* Multi-capacitor decoupling network modeling
+* Multi-capacitor decoupling optimization
 
 ---
 
-## 💡 Summary Statement
+## 💡 Summary
 
-This work provides a practical, simulation-driven perspective on how **signal and power integrity challenges emerge and interact** in modern high-speed electronic systems.
+A simulation-driven exploration of how **real-world non-idealities impact signal quality and power stability** in high-speed digital designs.
